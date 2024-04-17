@@ -21,9 +21,9 @@
 function git_repo_info {
     init_doc
     init_desc \
-        "Check whether a single shell-commands is available"
+        "Return information about the current git project"
     init_arg "str" "type" "The requested type of information about the repo" "api"
-    init_arg "str" "url" "The url to obtain the requested info from" "$(git config --get remote.origin.url)"
+    init_arg "str" "url" "The url to obtain the requested info from" "\$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 

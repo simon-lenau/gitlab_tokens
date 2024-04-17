@@ -1,4 +1,4 @@
-#!bash
+#!/opt/homebrew/bin/bash
 
 if [ -n "${__gitlab_token_management_included__}" ]; then return; fi
 export __gitlab_token_management_included__=true
