@@ -1,0 +1,38 @@
+# ============================ > make_file_path < ============================ #
+# ┌┌────────────────────────────────────────────────────────────────────────┐┐ #
+# ││ `make_file_path`                                                       ││ #
+# ││                                                                        ││ #
+# ││ Create path a file, including parent directories                       ││ #
+# ││                                                                        ││ #
+# ││ Input:                                                                 ││ #
+# ││ $1 : file (string): The file's path                                    ││ #
+# ││                                                                        ││ #
+# ││ Output:                                                                ││ #
+# ││ null                                                                   ││ #
+# ││                                                                        ││ #
+# ││ Usage:                                                                 ││ #
+# ││ make_file_path <file>                                                  ││ #
+# ││                                                                        ││ #
+# ││ Examples:                                                              ││ #
+# ││ make_file_path "/path/to/file"                                         ││ #
+# └└────────────────────────────────────────────────────────────────────────┘┘ #
+function make_file_path {
+    init_doc
+    init_desc \
+        "Check validity of gitlab container registry token using \`docker login\`"
+    init_arg "str" "file" "The file to create the path for" "~/path/to/file"
+
+    need_help $@ && return $?
+
+    eval "$(parse_arguments "$@")"
+
+    # Make sure path is fully expanded, as mkdir and > do not expand ~
+    local file=$(eval "echo "${file}"")
+    # Create path
+    mkdir -p "$(dirname "${file}")"
+    # Create file
+    touch "${file}"
+        # Set file permissions
+    chmod u=rw,g=,o= "${file}"
+}
+# ────────────────────────────────── <end> ─────────────────────────────────── #

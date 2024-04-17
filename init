@@ -1,0 +1,55 @@
+#!bash
+
+if [ -n "${__gitlab_token_management_included__}" ]; then return; fi
+export __gitlab_token_management_included__=true
+
+# =============================== > Settings < =============================== #
+dependencies=("jq" "curl")
+
+git_registry_port=5005
+git_api_version=4
+
+if [ -z "${GITLAB_TOKEN_MANAGEMENT_DIR}" ]; then
+    export GITLAB_TOKEN_MANAGEMENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
+
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
+# ========================== > Source submodules < =========================== #
+source ${GITLAB_TOKEN_MANAGEMENT_DIR}/submodules/bash-doc/init
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
+# ============================= > Source files < ============================= #
+source_path="${GITLAB_TOKEN_MANAGEMENT_DIR}/functions"
+
+source ${source_path}/check_dependency
+source ${source_path}/git_api
+source ${source_path}/git_api_secret_set
+source ${source_path}/git_repo_info
+source ${source_path}/git_repo_id
+source ${source_path}/git_token_access
+source ${source_path}/git_token_create
+source ${source_path}/git_token_delete
+source ${source_path}/git_token_id_get
+source ${source_path}/git_token_renew
+source ${source_path}/git_token_rotate
+source ${source_path}/git_token_valid
+source ${source_path}/git_token_valid_docker
+source ${source_path}/git_token_valid_enroot
+source ${source_path}/make_file_path
+source ${source_path}/normalize_path
+source ${source_path}/read_from_file
+source ${source_path}/read_non_blocking
+source ${source_path}/token_name
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
+# ========================== > Check dependencies < ========================== #
+# Dependencies are declared in the 'settings' section
+check_dependencies --commands="${dependencies[@]}"
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
+# ========================= > Export all functions < ========================= #
+eval "$(declare -F | sed -e 's/-f /-fx /')"
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
+

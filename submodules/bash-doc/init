@@ -1,0 +1,25 @@
+#!bash
+
+if [ -n "${__bash_doc_included__}" ]; then return; fi
+export __bash_doc_included__=true
+
+if [ -z "${BASH_DOC_DIR}" ]; then
+    export BASH_DOC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
+
+# ===================== > Source and export functions < ====================== #
+
+export source_path="${BASH_DOC_DIR}/Functions"
+
+source $source_path/init_functions.sh
+source $source_path/format_functions.sh
+
+source $source_path/aux.sh
+source $source_path/need_help.sh
+source $source_path/parse_arguments.sh
+source $source_path/show_functions.sh
+
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+# ========================= > Export all functions < ========================= #
+eval "$(declare -F | sed -e 's/-f /-fx /')"
+# ────────────────────────────────── <end> ─────────────────────────────────── #

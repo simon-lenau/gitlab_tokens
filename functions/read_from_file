@@ -1,0 +1,16 @@
+# ============================ > read_from_file < ============================ #
+function read_from_file {
+    init_doc
+    init_desc \
+        "Read a file, but return empty string if file does not exist"
+    init_arg "str" "file" "The file to read from" "~/path/to/file"
+
+    need_help $@ && return $?
+
+    eval "$(parse_arguments "$@")"
+    # Make sure file path is expanded
+    local file="$(normalize_path --path="$file")"
+    # Read file if existent
+    echo "$(cat ${file} 2>"/dev/null" || echo "")"
+}
+# ────────────────────────────────── <end> ─────────────────────────────────── #

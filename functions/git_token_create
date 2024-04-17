@@ -1,0 +1,42 @@
+# =========================== > git_token_create < =========================== #
+# ┌┌────────────────────────────────────────────────────────────────────────┐┐ #
+# ││ `git_token_create`                                                     ││ #
+# ││                                                                        ││ #
+# ││ Create a new project access token                                      ││ #
+# ││                                                                        ││ #
+# ││ Output:                                                                ││ #
+# ││ null                                                                   ││ #
+# ││                                                                        ││ #
+# ││ Examples:                                                              ││ #
+# ││ git_token_create                                                       ││ #
+# └└────────────────────────────────────────────────────────────────────────┘┘ #
+function git_token_create {
+    init_doc
+    init_desc \
+        "Create a token for accessing gitlab repo + container registry"
+    init_arg "str" "token_duration" "The expiry duration of the token" "1 day"
+
+    need_help $@ && return $?
+
+    eval "$(parse_arguments "$@")"
+
+    token_duration="$(printf "%s " "${token_duration[@]}")"
+
+    local token_infos="$(date '+%Y-%m-%d_%H:%M:%S')"
+    local expiry_date=$(date -d "${token_duration}" "+%Y-%m-%d") || return $?
+
+    echo "$(
+        git_api --curl_body "\
+            --request POST \
+            --data-urlencode "name=$(token_name --content ${token_infos})" \
+            --data-urlencode "scopes[]=read_registry" \
+            --data-urlencode "scopes[]=write_registry" \
+            --data-urlencode "scopes[]=read_repository" \
+            --data-urlencode "scopes[]=write_repository" \
+            --data-urlencode "expires_at=${expiry_date}" \
+            --data-urlencode "access_level=30" \
+            "$(git_repo_info --type api)access_tokens" \
+            "
+    )"
+}
+# ────────────────────────────────── <end> ─────────────────────────────────── #

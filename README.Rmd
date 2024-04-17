@@ -1,0 +1,155 @@
+---
+title: bash-doc
+output:
+  github_document
+---
+
+```{r, echo=FALSE,include=FALSE}
+# Make sure colors from tput are used correctly in the output
+options(crayon.enabled = TRUE)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output">',
+    paste0(
+      "<code>",
+      fansi::to_html(x = 
+      htmltools::htmlEscape((unlist(strsplit(x,"\n")))), 
+      warn = FALSE,carry=FALSE),
+      "</code>",
+      collapse="\n"),
+    '</pre>'
+  )
+})
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+Sys.setenv("TERM"="linux")
+```
+
+
+
+Simple functions for creating and formating documentation of bash scripts / functions
+
+### Create documentation
+
+#### `init_doc`
+
+Initialize the documentation block
+
+**Arguments:**
+none
+
+#### `init_desc`
+
+Set the description of the function / script
+
+**Arguments:**
+
+- `$1,...,$n`: Lines of the description
+
+#### `init_arg`
+
+Initialize named arguments to be set via `--arg=val` or `--arg val` (using one or two dashes)
+
+**Arguments:**
+- `$1`: Argument type  
+- `$2`: Argument name
+- `$3`: Argument description
+- `$4`: Default value
+
+### Set arguments
+
+#### `parse_arguments`
+Set arguments passed as `--arg=val` or `--arg val` (using one or two dashes).
+Should be used as `eval "$(parse_arguments "$@")"`
+
+**Arguments:**
+- `$1,...,$n`: Arguments to be set.
+
+    
+### Print help
+
+#### `need_help`
+
+Show the help if argument `-h` or `-help` (using one or two dashes) is present. If output is console and tput is available, tput is used for colouring.
+
+**Arguments:**
+none
+
+## Examples
+
+The following function is a basic example of how to use `bash-doc`:
+
+
+
+```{bash example_function, engine.opts="-l",echo=FALSE,comment=NA}
+cat "examples/example_function.sh"
+source "examples/example_function.sh"
+```
+
+### Printing help
+
+```{bash example_help_show, engine.opts="-l",echo=FALSE,comment=NA}
+cat "examples/example_help.sh"
+```
+
+```{bash example_help_bash,echo=FALSE,comment=NA,error=TRUE,class.output="html",include=!file.exists("examples/example_help.png")}
+source "examples/example_function.sh"
+source "examples/example_help.sh"
+```
+
+```{r example_help_r,echo=FALSE, out.width="35%",include=file.exists("examples/example_help.png")}
+knitr::include_graphics("examples/example_help.png")
+```
+
+### Specifying arguments
+
+Defaults are used if an argument is not specified:
+
+```{bash example_int_only_show, engine.opts="-l",echo=FALSE,comment=NA,class="bash"}
+cat "examples/example_int_only.sh"
+```
+
+```{bash example_int_only,echo=FALSE,comment=NA}
+source "examples/example_function.sh"
+source "examples/example_int_only.sh"
+```
+
+```{bash example_str_only_show, engine.opts="-l",echo=FALSE,comment=NA,class="bash"}
+cat "examples/example_str_only.sh"
+```
+
+```{bash example_str_only,echo=FALSE,comment=NA}
+source "examples/example_function.sh"
+source "examples/example_str_only.sh"
+```
+
+but setting an argument overwrites the defaults:
+
+```{bash example_int_and_str_show, engine.opts="-l",echo=FALSE,comment=NA,class="bash"}
+cat "examples/example_int_and_str.sh"
+```
+
+```{bash example_int_and_str,echo=FALSE,comment=NA}
+source "examples/example_function.sh"
+source "examples/example_int_and_str.sh"
+```
+
+In any case, it is checked that only valid arguments are passed. An error is thrown otherwise:
+
+```{bash example_invalid_argument_show, engine.opts="-l",echo=FALSE,comment=NA,class="bash"}
+cat "examples/example_invalid_argument.sh"
+```
+
+```{bash example_invalid_argument_bash,echo=FALSE,comment=NA,error=TRUE,class.output="html",include=!file.exists("examples/example_invalid_argument.png")}
+source "examples/example_function.sh"
+source "examples/example_invalid_argument.sh"
+```
+
+
+```{r example_invalid_argument_r, out.width="90%",echo=FALSE,include=file.exists("examples/example_invalid_argument.png"),eval=file.exists("examples/example_invalid_argument.png")}
+knitr::include_graphics("examples/example_invalid_argument.png")
+```
+
+
+
