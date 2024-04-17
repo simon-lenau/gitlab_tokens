@@ -7,6 +7,8 @@ cross-repository CI job token permissions
 
 # Core functions
 
+## git_repo_info
+
 <pre class="r-output"><code>git_repo_info   
    Return information about the current git project
 &#10;   Arguments:      
@@ -21,6 +23,9 @@ cross-repository CI job token permissions
          --type     "api" \
          --url      "$(git config --get remote.origin.url)"
 </code></pre>
+
+## git_token_renew
+
 <pre class="r-output"><code>git_token_renew   
    Create or rotate gitlab token via API
 &#10;   Arguments:      
@@ -35,6 +40,9 @@ cross-repository CI job token permissions
          --tokenfile  "~/path/to/file" \
          --api_secret "glpat-aG2fJfixfGub6ULt2L5_"
 </code></pre>
+
+## git_token_access
+
 <pre class="r-output"><code>git_token_access   
    Allow a job (CI) token from the current project to access another project's repo,
    e.g. to clone the repo or access its container registry.

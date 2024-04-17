@@ -59,14 +59,17 @@ Utilities to create and modify Gitlab project access tokens from bash:
 
 # Core functions
 
+## git_repo_info
 ```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
 print_help("git_repo_info")
 ```
 
+## git_token_renew
 ```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
 print_help("git_token_renew")
 ```
 
+## git_token_access
 ```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
 print_help("git_token_access")
 ```

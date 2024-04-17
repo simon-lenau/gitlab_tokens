@@ -606,6 +606,7 @@ padding-top: 0px;
 bash: - create, rotate and revoke access tokens - Grant and revoke
 cross-repository CI job token permissions</p>
 <h1 id="core-functions">Core functions</h1>
+<h2 id="git_repo_info">git_repo_info</h2>
 <pre class="r-output"><code>git_repo_info   
    Return information about the current git project
 
@@ -623,6 +624,7 @@ cross-repository CI job token permissions</p>
          --url      &quot;$(git config --get remote.origin.url)&quot;
 </code></pre>
 
+<h2 id="git_token_renew">git_token_renew</h2>
 <pre class="r-output"><code>git_token_renew   
    Create or rotate gitlab token via API
 
@@ -640,6 +642,7 @@ cross-repository CI job token permissions</p>
          --api_secret &quot;glpat-aG2fJfixfGub6ULt2L5_&quot;
 </code></pre>
 
+<h2 id="git_token_access">git_token_access</h2>
 <pre class="r-output"><code>git_token_access   
    Allow a job (CI) token from the current project to access another project&#39;s repo,
    e.g. to clone the repo or access its container registry.
