@@ -1,5 +1,5 @@
 ---
-title: gitlab_token_management
+title: gitlab_tokens
 output:
   github_document
 ---

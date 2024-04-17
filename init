@@ -1,7 +1,7 @@
 #!/opt/homebrew/bin/bash
 
-if [ -n "${__gitlab_token_management_included__}" ]; then return; fi
-export __gitlab_token_management_included__=true
+if [ -n "${__gitlab_tokens_included__}" ]; then return; fi
+export __gitlab_tokens_included__=true
 
 # =============================== > Settings < =============================== #
 dependencies=("jq" "curl")
@@ -9,18 +9,18 @@ dependencies=("jq" "curl")
 git_registry_port=5005
 git_api_version=4
 
-if [ -z "${GITLAB_TOKEN_MANAGEMENT_DIR}" ]; then
-    export GITLAB_TOKEN_MANAGEMENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -z "${GITLAB_TOKENS_DIR_DIR}" ]; then
+    export GITLAB_TOKENS_DIR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-source ${GITLAB_TOKEN_MANAGEMENT_DIR}/submodules/bash-doc/init
+source ${GITLAB_TOKENS_DIR_DIR}/submodules/bash-doc/init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-source_path="${GITLAB_TOKEN_MANAGEMENT_DIR}/functions"
+source_path="${GITLAB_TOKENS_DIR_DIR}/functions"
 
 source ${source_path}/check_dependency
 source ${source_path}/git_api
