@@ -1,4 +1,4 @@
-gitlab_token_management
+gitlab_tokens
 ================
 
 Utilities to create and modify Gitlab project access tokens from bash: -
