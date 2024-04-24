@@ -1,9 +1,10 @@
 gitlab_tokens
 ================
 
-Utilities to create and modify Gitlab project access tokens from bash: -
-create, rotate and revoke access tokens - Grant and revoke
-cross-repository CI job token permissions
+Utilities to create and modify Gitlab project access tokens from bash:
+
+- create, rotate and revoke access tokens
+- Grant and revoke cross-repository CI job token permissions
 
 # Core functions
 
