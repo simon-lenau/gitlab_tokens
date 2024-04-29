@@ -1,1 +1,0 @@
-example_function --help
