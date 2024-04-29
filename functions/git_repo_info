@@ -23,7 +23,7 @@ function git_repo_info {
     init_desc \
         "Return information about the current git project"
     init_arg "str" "type" "The requested type of information about the repo" "api"
-    init_arg "str" "url" "The url to obtain the requested info from" "\$(git config --get remote.origin.url)"
+    init_arg "str" "url" "The url to obtain the requested info from" "$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 
@@ -40,6 +40,7 @@ function git_repo_info {
                 -e 's/^.*[\/]\{2,\}//g' \
                 -e 's/[\/:]/;/g'
     )
+
 
     # Obtain the git instance, user, and project
     local host=$(echo "${repo_info}" | awk -F\[\;\] '{print $1}')

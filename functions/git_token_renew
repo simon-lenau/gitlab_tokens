@@ -44,7 +44,7 @@ function git_token_renew {
     fi
 
     # Do this in subshell to protect the secret
-    $(
+    printf "%s\n" "$(
         { # Set API secret
             git_api_secret_set --api_secret="${api_secret}"
         } || {
@@ -79,8 +79,7 @@ function git_token_renew {
         chmod u=rw,g=,o= "${tokenfile}"
         # Print token to file
         echo "${token_value}" >"${tokenfile}"
-        echo "${token_value}" >"${tokenfile}"
-    )
+    )"
 }
 
 # ────────────────────────────────── <end> ─────────────────────────────────── #
