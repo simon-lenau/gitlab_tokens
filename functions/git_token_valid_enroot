@@ -12,7 +12,7 @@ function git_token_valid_enroot {
 
     eval "$(parse_arguments "$@")"
 
-    if [ ! -z ${credential} ]; then
+    if [ ! -z ${registry_token} ]; then
         result="$(
             export CISPA_GITLAB_TOKEN="$registry_token"
             enroot import docker://$(git_repo_info --type "registry") \
