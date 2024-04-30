@@ -15,7 +15,7 @@ function git_token_valid_enroot {
     if [ ! -z ${credential} ]; then
         result="$(
             export CISPA_GITLAB_TOKEN="$registry_token"
-            enroot import docker://projects.cispa.saarland:5005#c01sile/containr_test \
+            enroot import docker://$(git_repo_info --type "registry") \
                 2>&1 >/dev/null
         )"
         if [[ $result =~ "Authentication succeeded" ]]; then
