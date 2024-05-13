@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "${__gitlab_tokens_included__}" ]; then return; fi
 export __gitlab_tokens_included__=true
@@ -45,7 +45,7 @@ source ${source_path}/token_name
 
 # ========================== > Check dependencies < ========================== #
 # Dependencies are declared in the 'settings' section
-check_dependencies --commands="${dependencies[@]}"
+check_dependencies --commands "${dependencies[@]}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================= > Export all functions < ========================= #

@@ -13,6 +13,7 @@ function check_dependency {
     if [ -z ${command} ]; then
         return 0
     fi
+
     # Check if command can be run
     command -v "${command}" >/dev/null 2>&1 || {
         err "Command ${command} is required but not installed. Aborting."
