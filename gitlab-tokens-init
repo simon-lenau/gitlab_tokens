@@ -13,6 +13,8 @@ if [ -z "${GITLAB_TOKENS_DIR}" ]; then
     export GITLAB_TOKENS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
+echo "GITLAB_TOKENS_DIR: $GITLAB_TOKENS_DIR"
+
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
