@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# if [ -n "${__gitlab_tokens_included__}" ]; then return 0; fi
+if [ -n "${__gitlab_tokens_included__}" ]; then return 0; fi
 export __gitlab_tokens_included__=true
 
 # =============================== > Settings < =============================== #
@@ -10,7 +10,7 @@ git_registry_port=5005
 git_api_version=4
 
 if [ -z "${GITLAB_TOKENS_DIR}" ]; then
-    export GITLAB_TOKENS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    GITLAB_TOKENS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
 echo "GITLAB_TOKENS_DIR: $GITLAB_TOKENS_DIR"
@@ -18,33 +18,29 @@ echo "GITLAB_TOKENS_DIR: $GITLAB_TOKENS_DIR"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-cd ${GITLAB_TOKENS_DIR}/submodules/bash-doc &&
-    source ./bash-doc-init
-cd ${GITLAB_TOKENS_DIR}
+source ${GITLAB_TOKENS_DIR}/submodules/bash-doc/bash-doc-init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-cd ${GITLAB_TOKENS_DIR}/functions
-source ./check_dependency
-source ./git_api
-source ./git_api_secret_set
-source ./git_repo_info
-source ./git_repo_id
-source ./git_token_access
-source ./git_token_create
-source ./git_token_delete
-source ./git_token_id_get
-source ./git_token_renew
-source ./git_token_rotate
-source ./git_token_valid
-source ./git_token_valid_docker
-source ./git_token_valid_enroot
-source ./make_file_path
-source ./normalize_path
-source ./read_from_file
-source ./read_non_blocking
-source ./token_name
-cd ${GITLAB_TOKENS_DIR}/
+source ${GITLAB_TOKENS_DIR}/functions/check_dependency
+source ${GITLAB_TOKENS_DIR}/functions/git_api
+source ${GITLAB_TOKENS_DIR}/functions/git_api_secret_set
+source ${GITLAB_TOKENS_DIR}/functions/git_repo_info
+source ${GITLAB_TOKENS_DIR}/functions/git_repo_id
+source ${GITLAB_TOKENS_DIR}/functions/git_token_access
+source ${GITLAB_TOKENS_DIR}/functions/git_token_create
+source ${GITLAB_TOKENS_DIR}/functions/git_token_delete
+source ${GITLAB_TOKENS_DIR}/functions/git_token_id_get
+source ${GITLAB_TOKENS_DIR}/functions/git_token_renew
+source ${GITLAB_TOKENS_DIR}/functions/git_token_rotate
+source ${GITLAB_TOKENS_DIR}/functions/git_token_valid
+source ${GITLAB_TOKENS_DIR}/functions/git_token_valid_docker
+source ${GITLAB_TOKENS_DIR}/functions/git_token_valid_enroot
+source ${GITLAB_TOKENS_DIR}/functions/make_file_path
+source ${GITLAB_TOKENS_DIR}/functions/normalize_path
+source ${GITLAB_TOKENS_DIR}/functions/read_from_file
+source ${GITLAB_TOKENS_DIR}/functions/read_non_blocking
+source ${GITLAB_TOKENS_DIR}/functions/token_name
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Check dependencies < ========================== #
