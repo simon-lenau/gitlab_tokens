@@ -9,18 +9,18 @@ dependencies=("jq" "curl")
 git_registry_port=5005
 git_api_version=4
 
-if [ -z "${GITLAB_TOKENS_DIR_DIR}" ]; then
-    export GITLAB_TOKENS_DIR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -z "${GITLAB_TOKENS_DIR}" ]; then
+    export GITLAB_TOKENS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-source ${GITLAB_TOKENS_DIR_DIR}/submodules/bash-doc/init
+source ${GITLAB_TOKENS_DIR}/submodules/bash-doc/init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-source_path="${GITLAB_TOKENS_DIR_DIR}/functions"
+source_path="${GITLAB_TOKENS_DIR}/functions"
 
 source ${source_path}/check_dependency
 source ${source_path}/git_api
