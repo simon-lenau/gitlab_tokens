@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -n "${__gitlab_tokens_included__}" ]; then return; fi
+# if [ -n "${__gitlab_tokens_included__}" ]; then return 0; fi
 export __gitlab_tokens_included__=true
 
 # =============================== > Settings < =============================== #
@@ -16,31 +16,33 @@ fi
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-source ${GITLAB_TOKENS_DIR}/submodules/bash-doc/init
+cd ${GITLAB_TOKENS_DIR}/submodules/bash-doc &&
+    source ./bash-doc-init
+cd ${GITLAB_TOKENS_DIR}
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-source_path="${GITLAB_TOKENS_DIR}/functions"
-
-source ${source_path}/check_dependency
-source ${source_path}/git_api
-source ${source_path}/git_api_secret_set
-source ${source_path}/git_repo_info
-source ${source_path}/git_repo_id
-source ${source_path}/git_token_access
-source ${source_path}/git_token_create
-source ${source_path}/git_token_delete
-source ${source_path}/git_token_id_get
-source ${source_path}/git_token_renew
-source ${source_path}/git_token_rotate
-source ${source_path}/git_token_valid
-source ${source_path}/git_token_valid_docker
-source ${source_path}/git_token_valid_enroot
-source ${source_path}/make_file_path
-source ${source_path}/normalize_path
-source ${source_path}/read_from_file
-source ${source_path}/read_non_blocking
-source ${source_path}/token_name
+cd ${GITLAB_TOKENS_DIR}/functions
+source ./check_dependency
+source ./git_api
+source ./git_api_secret_set
+source ./git_repo_info
+source ./git_repo_id
+source ./git_token_access
+source ./git_token_create
+source ./git_token_delete
+source ./git_token_id_get
+source ./git_token_renew
+source ./git_token_rotate
+source ./git_token_valid
+source ./git_token_valid_docker
+source ./git_token_valid_enroot
+source ./make_file_path
+source ./normalize_path
+source ./read_from_file
+source ./read_non_blocking
+source ./token_name
+cd ${GITLAB_TOKENS_DIR}/
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Check dependencies < ========================== #
@@ -49,7 +51,5 @@ check_dependencies --commands "${dependencies[@]}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================= > Export all functions < ========================= #
-eval "$(declare -F | sed -e 's/-f /-fx /')"
+eval "$(declare -F | sed -e 's/-f /-fx /')" 
 # ────────────────────────────────── <end> ─────────────────────────────────── #
-
-
