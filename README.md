@@ -10,18 +10,67 @@ Utilities to create and modify Gitlab project access tokens from bash:
 
 ## git_repo_info
 
-    Warning in system(paste0("/opt/homebrew/bin/bash -c \"source ./init && ", : running command '/opt/homebrew/bin/bash -c "source ./init && git_repo_info --help"'
-    had status 1
+<pre class="r-output"><code>git_repo_info   
+   Return information about the current git project
+&#10;   Arguments:      
+      --type     &lt;str&gt; 
+         The requested type of information about the repo
+         Default: api
+      --url      &lt;str&gt; 
+         The url to obtain the requested info from
+         Default: git@github.com:simon-lenau/gitlab-tokens.git
+&#10;   Usage:      
+      git_repo_info \
+         --type     "api" \
+         --url      "git@github.com:simon-lenau/gitlab-tokens.git"
+</code></pre>
 
 ## git_token_renew
 
-    Warning in system(paste0("/opt/homebrew/bin/bash -c \"source ./init && ", : running command '/opt/homebrew/bin/bash -c "source ./init && git_token_renew
-    --help"' had status 1
+<pre class="r-output"><code>git_token_renew   
+   Create or rotate gitlab token via API
+&#10;   Arguments:      
+      --tokenfile  &lt;str&gt; 
+         The file to store the token
+         Default: ~/path/to/file
+      --api_secret &lt;str&gt; 
+         The API secret
+         Default: glpat-aG2fJfixfGub6ULt2L5_
+&#10;   Usage:      
+      git_token_renew \
+         --tokenfile  "~/path/to/file" \
+         --api_secret "glpat-aG2fJfixfGub6ULt2L5_"
+</code></pre>
 
 ## git_token_access
 
-    Warning in system(paste0("/opt/homebrew/bin/bash -c \"source ./init && ", : running command '/opt/homebrew/bin/bash -c "source ./init && git_token_access
-    --help"' had status 1
+<pre class="r-output"><code>git_token_access   
+   Allow a job (CI) token from the current project to access another project's repo,
+   e.g. to clone the repo or access its container registry.
+   (Requires a token with API access).
+&#10;   Arguments:      
+      --from_project &lt;str&gt; 
+         Project whichs job tokens should be able to access `to_project`
+                  Must be on the same host (e.g. github.com) as `to_project`.
+         Default: simon-lenau/gitlab-tokens
+      --to_project   &lt;str&gt; 
+         Project which should be accessible using `from_project`s job token.
+                  Must be on the same host (e.g. github.com) as `from_project`.
+         Default: simon-lenau/gitlab-tokens
+      --action       &lt;str&gt; 
+         Action to perform. Either 'grant' or 'revoke'
+                  to add or revoke access from `from_project` to `to_project`
+         Default: grant
+      --api_secret   &lt;str&gt; 
+         The API secret
+         Default: glpat-aG2fJfixfGub6ULt2L5_
+&#10;   Usage:      
+      git_token_access \
+         --from_project "simon-lenau/gitlab-tokens" \
+         --to_project   "simon-lenau/gitlab-tokens" \
+         --action       "grant" \
+         --api_secret   "glpat-aG2fJfixfGub6ULt2L5_"
+</code></pre>
 
 # Examples
 

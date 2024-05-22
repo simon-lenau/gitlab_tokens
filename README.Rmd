@@ -41,7 +41,7 @@ print_help <-
     cat(
       system(
         paste0(
-          "/opt/homebrew/bin/bash -c \"source ./init && ",
+          "/opt/homebrew/bin/bash -c \"source ./gitlab-tokens-init && ",
       x,
       " --help\""
       ), 
