@@ -1,5 +1,5 @@
 ---
-title: gitlab_tokens
+title: gitlab-tokens
 output:
   github_document
 ---
