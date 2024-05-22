@@ -10,17 +10,21 @@ git_registry_port=5005
 git_api_version=4
 
 if [ -z "${GITLAB_TOKENS_DIR}" ]; then
-    GITLAB_TOKENS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    current_file=
+    if [ -n "$BASH_VERSION" ]; then
+        current_file="${BASH_SOURCE[0]}"
+    elif [ -n "$ZSH_VERSION" ]; then
+        current_file="${(%):-%x}"
+    fi
+    GITLAB_TOKENS_DIR="$(dirname $(readlink -f "${current_file}"))"
 fi
-
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-source ${GITLAB_TOKENS_DIR}/submodules/bash-doc/bash-doc-init
+source ${GITLAB_TOKENS_DIR}/submodules/bash-aux/bash-aux-init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-source ${GITLAB_TOKENS_DIR}/functions/check_dependency
 source ${GITLAB_TOKENS_DIR}/functions/git_api
 source ${GITLAB_TOKENS_DIR}/functions/git_api_secret_set
 source ${GITLAB_TOKENS_DIR}/functions/git_repo_info
@@ -34,10 +38,6 @@ source ${GITLAB_TOKENS_DIR}/functions/git_token_rotate
 source ${GITLAB_TOKENS_DIR}/functions/git_token_valid
 source ${GITLAB_TOKENS_DIR}/functions/git_token_valid_docker
 source ${GITLAB_TOKENS_DIR}/functions/git_token_valid_enroot
-source ${GITLAB_TOKENS_DIR}/functions/make_file_path
-source ${GITLAB_TOKENS_DIR}/functions/normalize_path
-source ${GITLAB_TOKENS_DIR}/functions/read_from_file
-source ${GITLAB_TOKENS_DIR}/functions/read_non_blocking
 source ${GITLAB_TOKENS_DIR}/functions/token_name
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
@@ -47,5 +47,6 @@ check_dependencies --commands "${dependencies[@]}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================= > Export all functions < ========================= #
-eval "$(declare -F | sed -e 's/-f /-fx /')" 
+eval "$(declare -F |
+    perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}/gmi" )"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
