@@ -51,15 +51,15 @@ Utilities to create and modify Gitlab project access tokens from bash:
 &#10;   Arguments:      
       --from_project &lt;str&gt; 
          Project whichs job tokens should be able to access `to_project`
-                  Must be on the same host (e.g. github.com) as `to_project`.
+         Must be on the same host (e.g. github.com) as `to_project`.
          Default: simon-lenau/gitlab-tokens
       --to_project   &lt;str&gt; 
          Project which should be accessible using `from_project`s job token.
-                  Must be on the same host (e.g. github.com) as `from_project`.
+         Must be on the same host (e.g. github.com) as `from_project`.
          Default: simon-lenau/gitlab-tokens
       --action       &lt;str&gt; 
          Action to perform. Either 'grant' or 'revoke'
-                  to add or revoke access from `from_project` to `to_project`
+         to add or revoke access from `from_project` to `to_project`
          Default: grant
       --api_secret   &lt;str&gt; 
          The API secret
