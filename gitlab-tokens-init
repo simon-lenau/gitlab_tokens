@@ -24,6 +24,11 @@ fi
 source ${GITLAB_TOKENS_DIR}/submodules/bash-aux/bash-aux-init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
+# =================== > Save currently defined functions < =================== #
+# To exclude them from exporting
+functions_not_export="$(declare -F)"
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
 # ============================= > Source files < ============================= #
 source ${GITLAB_TOKENS_DIR}/functions/git_api
 source ${GITLAB_TOKENS_DIR}/functions/git_api_secret_set
@@ -46,7 +51,17 @@ source ${GITLAB_TOKENS_DIR}/functions/token_name
 check_dependencies --commands "${dependencies[@]}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
-# ========================= > Export all functions < ========================= #
-eval "$(declare -F |
-    perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}/gmi" )"
+# ================== > Export all newly defined functions < ================== #
+readarray -t functions <<<"$(declare -F)"
+
+functions_export="$(
+    for function in "${functions[@]}"; do
+        if [[ ! $functions_not_export =~ $function ]];then
+            echo "$function" | 
+            perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}\n/gi" 
+        fi
+    done
+)"
+
+eval "${functions_export}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
