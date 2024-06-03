@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
+# Load package functions
 source "../gitlab_tokens/init"
 
+# Get metadata
 git_host=$(git_repo_info --type "host")
 git_proj=$(git_repo_info --type "project")
 git_registry=$(git_repo_info --type "registry")
 
-# ================= > Container project folder management < ================== #
-sed \
-    -i '' \
-    -e "s/<<project>>/${git_proj}/g" \
-    ".env.container"
-# ────────────────────────────────── <end> ─────────────────────────────────── #
+
 
 # =================== > Project access token management < ==================== #
 tokenfile="~/credentials/${git_host}/${git_proj}/auto_container_token"
