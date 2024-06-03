@@ -30,7 +30,7 @@ function git_repo_id {
     {
         echo "$(
             { # Set API secret
-                git_api_secret_set --api_secret="${api_secret}"
+                git_api_secret_set --api_secret="${api_secret}" --url="${url}"
             } || {
                 err "Failed to set API secret"
                 return 1
@@ -42,7 +42,7 @@ function git_repo_id {
                     "$(
                         git_repo_info \
                             --type api \
-                            --url $url
+                            --url "$url"
                     )" |
                     # Extract project id
                     jq ".id"

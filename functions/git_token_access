@@ -31,6 +31,8 @@ function git_token_access {
          to add or revoke access from \`from_project\` to \`to_project\`" \
         "grant"
 
+    init_arg "str" "url" "The url of either \`from_project\` or \`to_project\`" "$(git config --get remote.origin.url)"
+
     init_arg "str" "api_secret" "The API secret" "glpat-aG2fJfixfGub6ULt2L5_"
 
     need_help $@ && return $?
@@ -68,6 +70,8 @@ function git_token_access {
         return 1
     fi
 
+    git_host="$(git_repo_info --type "host" --url "${url}")"
+
     if [[ ! "${to_project}" =~ ${git_host} ]]; then
         local to_project="${git_host}/$to_project"
     fi
@@ -79,13 +83,13 @@ function git_token_access {
     local to_host="$(
         git_repo_info \
             --type host \
-            --url $to_project
+            --url "$to_project"
     )"
 
     local from_host="$(
         git_repo_info \
             --type host \
-            --url $to_project
+            --url "$to_project"
     )"
 
     if [[ ! "${from_host}" == "${to_host}" ]]; then
@@ -106,7 +110,7 @@ function git_token_access {
     $(
         # ============================ > Set API secret < ============================ #
         { # Set API secret
-            git_api_secret_set --api_secret="${api_secret}"
+            git_api_secret_set --api_secret="${api_secret}" --url="${url}"
         } || {
             err "Failed to set API secret -- skipping \`git_token_access\`!"
             return 1
@@ -140,7 +144,7 @@ function git_token_access {
         endpoint_url="$(
             printf "%s/" \
                 "https://${to_host}/api" \
-                "v${git_api_version}" \
+                "v${gitlab_api_version}" \
                 "projects/${to_id}/job_token_scope/allowlist"
         )"
         # ────────────────────────────────── <end> ─────────────────────────────────── #

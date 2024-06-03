@@ -22,6 +22,8 @@ function git_token_rotate {
         "Read a file, but return empty string if file does not exist"
     init_arg "str" "token_id" "The token id to rotate" "1234"
     init_arg "str" "token_duration" "The expiry duration of the token" "1 day"
+    init_arg "str" "url" "The url to rotate the token for" "$(git config --get remote.origin.url)"
+
 
     need_help $@ && return $?
 
@@ -35,7 +37,7 @@ function git_token_rotate {
         git_api --curl_body "\
             --request POST \
             --data-urlencode "expires_at=${expiry_date}" \
-            "$(git_repo_info --type api)access_tokens/${token_id}/rotate" \
+            "$(git_repo_info --url="${url}" --type api)access_tokens/${token_id}/rotate" \
             "
     )"
 }

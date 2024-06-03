@@ -15,6 +15,7 @@ function git_token_create {
     init_desc \
         "Create a token for accessing gitlab repo + container registry"
     init_arg "str" "token_duration" "The expiry duration of the token" "1 day"
+    init_arg "str" "url" "The url of of the project to create a token for" "$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 
@@ -35,7 +36,7 @@ function git_token_create {
             --data-urlencode "scopes[]=write_repository" \
             --data-urlencode "expires_at=${expiry_date}" \
             --data-urlencode "access_level=30" \
-            "$(git_repo_info --type api)access_tokens" \
+            "$(git_repo_info --type api --url "${url}")access_tokens" \
             "
     )"
 }

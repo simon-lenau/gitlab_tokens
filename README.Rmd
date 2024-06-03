@@ -55,7 +55,7 @@ print_help <-
 Utilities to create and modify Gitlab project access tokens from bash:
 
 - create, rotate and revoke access tokens
-- Grant and revoke cross-repository CI job token permissions
+- grant and revoke cross-repository CI job token permissions
 
 
 # Core functions
@@ -77,4 +77,16 @@ print_help("git_token_access")
 
 # Examples
 
-See `Examples/.env.host`
+## Simple example
+
+```{bash example_simple,echo=FALSE,comment=NA,error=TRUE}
+cat "examples/simple_example.sh"
+```
+
+## More extensive example 
+
+```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE}
+cat "examples/extensive_example.sh"
+```
+
+xxx

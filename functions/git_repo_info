@@ -69,7 +69,7 @@ function git_repo_info {
         echo "${host}:${git_registry_port}#${owner}/${proj}/"
     elif [[ ${type} == "api" ]]; then
         # The repo's API project endpoint
-        echo "https://${host}/api/v${git_api_version}/projects/${owner}%2F${proj}/"
+        echo "https://${host}/api/v${gitlab_api_version}/projects/${owner}%2F${proj}/"
     else
         err "Invalid argument \`type\`: $type"
         return 1

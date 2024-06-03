@@ -7,7 +7,7 @@ export __gitlab_tokens_included__=true
 dependencies=("jq" "curl")
 
 git_registry_port=5005
-git_api_version=4
+gitlab_api_version=4
 
 if [ -z "${GITLAB_TOKENS_DIR}" ]; then
     current_file=

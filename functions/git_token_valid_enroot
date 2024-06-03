@@ -7,6 +7,7 @@ function git_token_valid_enroot {
     init_arg "str" "registry_token" \
         "The token for accessing the registry" \
         "glpat-aG2fJfixfGub6ULt2L5_"
+    init_arg "str" "url" "The url of of the project to check a token for" "$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 
@@ -15,7 +16,7 @@ function git_token_valid_enroot {
     if [ ! -z ${registry_token} ]; then
         result="$(
             export CISPA_GITLAB_TOKEN="$registry_token"
-            enroot import docker://$(git_repo_info --type "registry") \
+            enroot import docker://$(git_repo_info --type "registry" --url "${url}") \
                 2>&1 >/dev/null
         )"
         if [[ $result =~ "Authentication succeeded" ]]; then

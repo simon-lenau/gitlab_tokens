@@ -24,6 +24,7 @@ function git_token_renew {
         "Create or rotate gitlab token via API"
     init_arg "str" "tokenfile" "The file to store the token" "~/path/to/file"
     init_arg "str" "api_secret" "The API secret" "glpat-aG2fJfixfGub6ULt2L5_"
+    init_arg "str" "url" "The url to renew the token for" "$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 
@@ -46,7 +47,9 @@ function git_token_renew {
     # Do this in subshell to protect the secret
     printf "%s\n" "$(
         { # Set API secret
-            git_api_secret_set --api_secret="${api_secret}"
+                git_api_secret_set \
+                    --api_secret="${api_secret}" \
+                    --url="${url}"
         } || {
             # If the secret is invalid, do nothing
             err "Failed to set API secret -- skipping \`git_token_renew\`!"
@@ -54,26 +57,40 @@ function git_token_renew {
         }
 
         # Rotate or create a token
-        local token_id=$(git_token_id_get)
+        local token_id=$(git_token_id_get --url="${url}")
 
         if [ ! -z ${token_id} ]; then
             echo "Rotating token!"
-            local new_token="$(git_token_rotate --token_id ${token_id})"
+            local new_token="$(
+                git_token_rotate \
+                    --token_id ${token_id} \
+                    --url="${url}"
+            )"
             if [[ "$new_token" =~ "400 Bad request" ]]; then
-                local token_id=$(git_token_id_get)
+                local token_id=$(git_token_id_get --url="${url}")
                 echo "Rotating token failed! Revoking token and creating new one." >&2
-                git_token_delete --token_ids "${token_id}"
-                local new_token=$(git_token_create)
+                git_token_delete \
+                    --token_ids "${token_id}" \
+                    --url="${url}"
+                local new_token=$(
+                    git_token_create \
+                        --url="${url}"
+                )
             fi
         else
             echo "Creating token!"
-            local new_token=$(git_token_create)
+            local new_token=$(
+                git_token_create \
+                    --url="${url}"
+            )
         fi
-        token_value=$(
+
+        token_value="$(
             echo "$new_token" |
-                jq -r '.token' |
-                tail -n 1
-        )
+            jq -r '.token' |
+            tail -n 1
+        )"
+
         make_file_path --file "${tokenfile}"
         # Set file permissions
         chmod u=rw,g=,o= "${tokenfile}"

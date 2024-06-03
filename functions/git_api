@@ -15,7 +15,9 @@ function git_api {
     curl \
         --silent \
         --header "PRIVATE-TOKEN: ${__gitlab_api_secret__}" \
-        "${curl_body[@]}"
+        "${curl_body[@]:0:${#curl_body[@]}-1}" \
+        "${__gitlab_api_url__}${curl_body[${#a[curl_body]}-1]}"
+    # "${curl_body[@]}"
 
     return 0
 

@@ -23,6 +23,8 @@ function git_token_valid {
         "Check validity of gitlab container registry token"
     init_arg "str" "registry_token" "The registry token" "glpat-aG2fJfixfGub6ULt2L5_"
 
+    init_arg "str" "url" "The url to check the api token for" "$(git config --get remote.origin.url)"
+
     need_help $@ && return $?
 
     eval "$(parse_arguments "$@")"
@@ -37,7 +39,7 @@ function git_token_valid {
         check_dependency --command "docker" > \
             /dev/null 2>&1
     } && {
-        git_token_valid_docker --registry_token "$registry_token"
+        git_token_valid_docker --registry_token "$registry_token" --url "${url}"
         return $?
     } ||
         # Use enroot import if available
@@ -45,7 +47,7 @@ function git_token_valid {
             check_dependency --command "enroot" > \
                 /dev/null 2>&1
         } && {
-        git_token_valid_enroot --registry_token "$registry_token"
+        git_token_valid_enroot --registry_token "$registry_token" --url "${url}"
         return $?
     } || {
         return 1

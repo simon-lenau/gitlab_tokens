@@ -17,6 +17,7 @@ function git_token_delete {
         "Delete one or multiple gitlab tokens based on their ids"
 
     init_arg "int" "token_ids" "The ids of the tokens to be deleted" "1234"
+    init_arg "str" "url" "The url of of the project to delete a token from" "$(git config --get remote.origin.url)"
 
     need_help $@ && return $?
 
@@ -27,7 +28,7 @@ function git_token_delete {
         echo "$(
             git_api --curl_body "\
                 --request DELETE \
-                "$(git_repo_info --type api)access_tokens/${token_id}" \
+                "$(git_repo_info --type api --url "${url}")access_tokens/${token_id}" \
                 "
         )"
     done
