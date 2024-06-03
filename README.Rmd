@@ -87,5 +87,3 @@ cat "examples/simple_example.sh"
 ```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE}
 cat "examples/extensive_example.sh"
 ```
-
-xxx
