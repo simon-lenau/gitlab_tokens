@@ -79,7 +79,7 @@ print_help("git_token_access")
 ```{r, echo=FALSE,include=FALSE}
 knitr::knit_hooks$set(output = function(x, options) {
   paste0(
-    '<pre class="bash">',
+    '```bash',
     paste0(
       "<code>",
       paste0(
@@ -91,7 +91,6 @@ knitr::knit_hooks$set(output = function(x, options) {
         ),
         collapse = "  \n"
       ),
-      "</code>",
       collapse = "\n"
     ),
     "</pre>"
@@ -107,6 +106,6 @@ cat "examples/simple_example.sh"
 
 ## More extensive example 
 
-```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE,results="asis"}
+```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE}
 cat "examples/extensive_example.sh"
 ```
