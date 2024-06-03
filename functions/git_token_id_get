@@ -31,7 +31,6 @@ function git_token_id_get {
             "$(git_repo_info --type api --url "${url}")access_tokens"
     )"
 
-
     if [[ -z ${tokens} ]]; then
         return 0
     fi

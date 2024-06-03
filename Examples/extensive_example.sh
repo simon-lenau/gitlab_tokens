@@ -8,8 +8,6 @@ git_host=$(git_repo_info --type "host")
 git_proj=$(git_repo_info --type "project")
 git_registry=$(git_repo_info --type "registry")
 
-
-
 # =================== > Project access token management < ==================== #
 tokenfile="~/credentials/${git_host}/${git_proj}/auto_container_token"
 

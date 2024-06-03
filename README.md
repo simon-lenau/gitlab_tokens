@@ -7,7 +7,6 @@ Utilities to create and modify Gitlab project access tokens from bash:
 - create, rotate and revoke access tokens
 - grant and revoke cross-repository CI job token permissions
 
-
 # Core functions
 
 ## git_repo_info
@@ -130,8 +129,6 @@ source "../gitlab_tokens/init"
 git_host=$(git_repo_info --type "host")
 git_proj=$(git_repo_info --type "project")
 git_registry=$(git_repo_info --type "registry")
-
-
 
 # =================== &gt; Project access token management &lt; ==================== #
 tokenfile="~/credentials/${git_host}/${git_proj}/auto_container_token"
