@@ -78,18 +78,12 @@ print_help("git_token_access")
 
 ```{r, echo=FALSE,include=FALSE}
 knitr::knit_hooks$set(output = function(x, options) {
-  paste0(
+  c(
     '```bash',
     paste0(
-      "<code>",
       paste0(
-        fansi::to_html(
-          x =
-            htmltools::htmlEscape(x),
-          warn = FALSE,
-          carry = FALSE
-        ),
-        collapse = "  \n"
+        x,
+        collapse = " \n"
       ),
       collapse = "\n"
     ),
@@ -106,6 +100,6 @@ cat "examples/simple_example.sh"
 
 ## More extensive example 
 
-```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE,results="asis"}
+```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE}
 cat "examples/extensive_example.sh"
 ```

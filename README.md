@@ -90,7 +90,8 @@ Utilities to create and modify Gitlab project access tokens from bash:
 
 ## Simple example
 
-```bash<code>#!/usr/bin/env bash
+```bash
+#!/usr/bin/env bash
 
 # Load package functions
 source "../gitlab-tokens-init"
@@ -118,10 +119,12 @@ if (
             --tokenfile "${project_token_file}" \
             --url="${proj_url}"
 fi
+
 ```
 
 ## More extensive example 
 
+```bash
 #!/usr/bin/env bash
 
 # Load package functions
@@ -175,3 +178,5 @@ read_from_file --file "~/credentials/${git_host}/personal_token" |
         --action grant
 
 # ────────────────────────────────── <end >─────────────────────────────────── #
+
+```
