@@ -107,8 +107,6 @@ cat "examples/simple_example.sh"
 
 ## More extensive example 
 
-```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE}
-echo "\`\`\`bash"
+```{bash example_extensive,echo=FALSE,comment=NA,error=TRUE,results="asis"}
 cat "examples/extensive_example.sh"
-echo "\`\`\`"
 ```
