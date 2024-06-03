@@ -22,7 +22,7 @@ if ! read_from_file --file="${tokenfile}" | git_token_valid; then
     if read_from_file --file "${tokenfile}" | git_token_valid; then
         # The created or rotated token is valid
         #   => export it
-        export CISPA_GITLAB_TOKEN=$(read_from_file --file ${tokenfile})
+        export GITLAB_TOKEN=$(read_from_file --file ${tokenfile})
     else
         # Creating or rotating a token failed
         #   => throw error
@@ -41,7 +41,7 @@ if ! read_from_file --file="${tokenfile}" | git_token_valid; then
 else
     # Current token is valid
     #   => export it
-    export CISPA_GITLAB_TOKEN=$(read_from_file --file ${tokenfile})
+    export GITLAB_TOKEN=$(read_from_file --file ${tokenfile})
 fi
 
 # Provide this repo's job tokens access to containr

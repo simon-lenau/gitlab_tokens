@@ -1,3 +1,9 @@
+---
+noteId: "a7c3309021bc11ef9fea2d089e621a52"
+tags: []
+
+---
+
 # gitlab-tokens
 
 
