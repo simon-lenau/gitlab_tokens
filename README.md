@@ -120,7 +120,8 @@ fi
 
 ## More extensive example 
 
-<pre class="r-output"><code>#!/usr/bin/env bash
+<pre class="r-output"><code>```bash
+#!/usr/bin/env bash
 
 # Load package functions
 source "../gitlab_tokens/init"
@@ -173,4 +174,5 @@ read_from_file --file "~/credentials/${git_host}/personal_token" |
         --action grant
 
 # ────────────────────────────────── &lt;end &gt;─────────────────────────────────── #
+```
 </code></pre>
