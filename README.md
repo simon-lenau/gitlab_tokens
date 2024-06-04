@@ -106,8 +106,7 @@ api_token_file="$HOME/credentials/projects.cispa.saarland/personal_token"
 
 # Define git project url
 proj_url="git@projects.cispa.saarland:c01sile/example.git"
-rm -rf *.log
-cat "${project_token_file}"
+
 if (
     # Check if the current token in
     # `$project_token_file`
@@ -124,12 +123,10 @@ if (
             --url="${proj_url}" \
             --token_scopes="read_registry write_registry read_repository write_repository"
 fi
-cat "${project_token_file}"
 
 ```
 
 ## More extensive example 
-
 
 ```bash
 #!/usr/bin/env bash
