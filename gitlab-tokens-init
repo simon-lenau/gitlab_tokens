@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 if [ -n "${__gitlab_tokens_included__}" ]; then return 0; fi
 export __gitlab_tokens_included__=true
 
@@ -50,6 +51,7 @@ source ${GITLAB_TOKENS_DIR}/functions/token_name
 # Dependencies are declared in the 'settings' section
 check_dependencies --commands "${dependencies[@]}"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
+
 
 # ================== > Export all newly defined functions < ================== #
 readarray -t functions <<<"$(declare -F)"

@@ -9,13 +9,13 @@ api_token_file="$HOME/credentials/projects.cispa.saarland/personal_token"
 
 # Define git project url
 proj_url="git@projects.cispa.saarland:c01sile/example.git"
-
+rm -rf *.log
+cat "${project_token_file}"
 if (
     # Check if the current token in
     # `$project_token_file`
     # is valid
-    ! read_from_file \
-        --file="${project_token_file}" |
+    ! cat "${project_token_file}" |
         git_token_valid \
             --url="${proj_url}"
 ); then
@@ -24,5 +24,7 @@ if (
     cat "${api_token_file}" |
         git_token_renew \
             --tokenfile "${project_token_file}" \
-            --url="${proj_url}"
+            --url="${proj_url}" \
+            --token_scopes="read_registry write_registry read_repository write_repository"
 fi
+cat "${project_token_file}"

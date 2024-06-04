@@ -65,7 +65,7 @@ function git_token_id_get {
 
     # Delete all tokens except the latest one
     if [ "$(echo "$token_ids" | jq -s 'length')" -gt 1 ]; then
-        git_token_delete --url "${url}" --token_ids "$(echo "$token_ids" | head -n -1)" >> git_token_delete.txt
+        git_token_delete --url "${url}" --token_ids "$(echo "$token_ids" | head -n -1)" >>git_token_delete.txt
     fi
     echo "$(echo "${token_ids}" | tail -n 1)"
 }
