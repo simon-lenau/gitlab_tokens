@@ -121,12 +121,13 @@ if (
         git_token_renew \
             --tokenfile "${project_token_file}" \
             --url="${proj_url}" \
-            --token_scopes="read_registry write_registry read_repository write_repository"
+            --token_scopes=read_registry write_registry read_repository write_repository
 fi
 
 ```
 
 ## More extensive example 
+
 
 ```bash
 #!/usr/bin/env bash
@@ -147,7 +148,9 @@ if ! read_from_file --file="${tokenfile}" | git_token_valid; then
     # The current token is not valid
     #   => create or rotate it
     read_from_file --file "~/credentials/${git_host}/personal_token" |
-        git_token_renew --tokenfile "${tokenfile}"
+        git_token_renew \
+            --tokenfile "${tokenfile}" \
+            --token_scopes=read_registry write_registry read_repository write_repository
 
     # Check if created token is valid
     if read_from_file --file "${tokenfile}" | git_token_valid; then
