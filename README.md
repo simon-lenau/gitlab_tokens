@@ -32,21 +32,25 @@ Utilities to create and modify Gitlab project access tokens from bash:
    Create or rotate gitlab token via API
 
    Arguments:      
-      --tokenfile  &lt;str&gt; 
+      --tokenfile    &lt;str&gt;   
          The file to store the token
          Default: ~/path/to/file
-      --api_secret &lt;str&gt; 
+      --api_secret   &lt;str&gt;   
          The API secret
          Default: glpat-aG2fJfixfGub6ULt2L5_
-      --url        &lt;str&gt; 
+      --token_scopes &lt;array&gt; 
+         The token scopes (if the token is created)
+         Default: read_repository
+      --url          &lt;str&gt;   
          The url to renew the token for
          Default: git@github.com:simon-lenau/gitlab-tokens.git
 
    Usage:      
       git_token_renew \
-         --tokenfile  "~/path/to/file" \
-         --api_secret "glpat-aG2fJfixfGub6ULt2L5_" \
-         --url        "git@github.com:simon-lenau/gitlab-tokens.git"
+         --tokenfile    "~/path/to/file" \
+         --api_secret   "glpat-aG2fJfixfGub6ULt2L5_" \
+         --token_scopes "read_repository" \
+         --url          "git@github.com:simon-lenau/gitlab-tokens.git"
 </code></pre>
 
 ## git_token_access
@@ -102,13 +106,13 @@ api_token_file="$HOME/credentials/projects.cispa.saarland/personal_token"
 
 # Define git project url
 proj_url="git@projects.cispa.saarland:c01sile/example.git"
-
+rm -rf *.log
+cat "${project_token_file}"
 if (
     # Check if the current token in
     # `$project_token_file`
     # is valid
-    ! read_from_file \
-        --file="${project_token_file}" |
+    ! cat "${project_token_file}" |
         git_token_valid \
             --url="${proj_url}"
 ); then
@@ -117,12 +121,15 @@ if (
     cat "${api_token_file}" |
         git_token_renew \
             --tokenfile "${project_token_file}" \
-            --url="${proj_url}"
+            --url="${proj_url}" \
+            --token_scopes="read_registry write_registry read_repository write_repository"
 fi
+cat "${project_token_file}"
 
 ```
 
 ## More extensive example 
+
 
 ```bash
 #!/usr/bin/env bash
