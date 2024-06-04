@@ -24,5 +24,5 @@ if (
         git_token_renew \
             --tokenfile "${project_token_file}" \
             --url="${proj_url}" \
-            --token_scopes="read_registry write_registry read_repository write_repository"
+            --token_scopes=read_registry write_registry read_repository write_repository
 fi
